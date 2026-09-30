@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgroArt | Luxury Lakeside Agritourism • Dąbrówno</title>
+  
+  <!-- Google Fonts & Tailwind CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              gold: '#E5B869',
+              goldLight: '#F7D99B',
+              dark: '#080E0B',
+              darker: '#040705',
+              emerald: '#0D2319',
+              emeraldLight: '#183B2C',
+              surface: 'rgba(16, 33, 25, 0.65)',
+              border: 'rgba(229, 184, 105, 0.22)',
+            }
+          },
+          fontFamily: {
+            serif: ['Cinzel', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #040705;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #183B2C;
+      border-radius: 4px;
+      border: 1px solid rgba(229, 184, 105, 0.3);
+    }
+
+    body {
+      background-color: #040705;
+      color: #E2E8F0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+      perspective: 1200px;
+    }
+
+    /* Spider-Web Canvas */
+    #spiderCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* 3D Glass Surface Effects */
+    .glass-card {
+      background: rgba(13, 35, 25, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(229, 184, 105, 0.2);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transform-style: preserve-3d;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .glass-card:hover {
+      border-color: rgba(229, 184, 105, 0.55);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(229, 184, 105, 0.15);
+    }
+
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #FFF0D0 0%, #E5B869 50%, #B8860B 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .emerald-glow-text {
+      text-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+    }
+
+    /* 3D Tilt Card Base */
+    .tilt-card {
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease-out;
+      will-change: transform;
+    }
+
+    .tilt-content {
+      transform: translateZ(30px);
+    }
+
+    .tilt-deep {
+      transform: translateZ(55px);
+    }
+
+    /* Glow pulse on interactive points */
+    @keyframes webPulse {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.12); }
+    }
+    .web-glow-orb {
+      animation: webPulse 6s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="relative min-h-screen selection:bg-brand-gold selection:text-brand-dark">
+
+  <!-- Interactive Spider-Web / 3D Constellation Canvas -->
+  <canvas id="spiderCanvas"></canvas>
+
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md bg-brand-darker/80 border-b border-brand-border/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-gold to-emerald-600 flex items-center justify-center p-[2px] shadow-lg shadow-brand-gold/10 group-hover:scale-105 transition-transform">
+          <div class="w-full h-full bg-brand-darker rounded-[10px] flex items-center justify-center font-serif font-black text-brand-gold text-lg">
+            A
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-serif tracking-widest text-xl font-bold gold-gradient-text uppercase">AgroArt</span>
+          <span class="text-[10px] tracking-wider text-emerald-300/70 uppercase">Lakeside Retreat • Dąbrówno</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
+        <a href="#experience" class="text-zinc-300 hover:text-brand-gold transition-colors">The Retreat</a>
+        <a href="#rooms" class="text-zinc-300 hover:text-brand-gold transition-colors">Rooms & Suites</a>
+        <a href="#amenities" class="text-zinc-300 hover:text-brand-gold transition-colors">Lake & Amenities</a>
+        <a href="#surroundings" class="text-zinc-300 hover:text-brand-gold transition-colors">Area & Castles</a>
+        <a href="#calculator" class="text-zinc-300 hover:text-brand-gold transition-colors">Rate Estimator</a>
+      </nav>
+
+      <!-- Action Cluster -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        
+        <!-- Ambient Sound Synthesizer Toggle -->
+        <button id="soundToggle" title="Toggle peaceful lakeside ambient sound" class="p-2.5 rounded-full border border-brand-border/60 bg-brand-emerald/40 text-brand-gold hover:border-brand-gold hover:bg-brand-emerald transition-all flex items-center justify-center">
+          <span id="soundIcon" class="text-base">🔇</span>
+        </button>
+
+        <!-- Currency Selector -->
+        <div class="hidden sm:flex bg-brand-dark/90 rounded-full p-1 border border-brand-border/60 text-xs">
+          <button id="btnPln" onclick="setCurrency('PLN')" class="px-2.5 py-1 rounded-full bg-brand-gold text-brand-dark font-bold transition-all">PLN</button>
+          <button id="btnEur" onclick="setCurrency('EUR')" class="px-2.5 py-1 rounded-full text-zinc-300 hover:text-white transition-all">EUR</button>
+        </div>
+
+        <!-- Direct Phone CTA -->
+        <a href="tel:+48572994705" class="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-brand-gold to-brand-goldLight text-brand-dark font-bold text-xs sm:text-sm tracking-wide shadow-lg shadow-brand-gold/20 hover:shadow-brand-gold/40 hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
+          <span>📞</span>
+          <span class="hidden sm:inline">+48 572 994 705</span>
+          <span class="sm:hidden">Call</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10 pt-28">
+    <section class="min-h-[92vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 relative overflow-hidden">
+      
+      <!-- Ambient Gradient Orbs in Background -->
+      <div class="absolute -top-20 left-1/4 w-96 h-96 bg-emerald-600/15 rounded-full blur-[120px] pointer-events-none web-glow-orb"></div>
+      <div class="absolute bottom-10 right-1/4 w-[30rem] h-[30rem] bg-brand-gold/10 rounded-full blur-[140px] pointer-events-none web-glow-orb" style="animation-delay: -3s;"></div>
+
+      <div class="max-w-6xl mx-auto w-full text-center relative">
+        
+        <!-- Luxury Floating Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-gold/30 bg-brand-emerald/50 backdrop-blur-md mb-8 hover:scale-105 transition-transform cursor-default">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span class="text-xs font-semibold tracking-widest uppercase text-brand-goldLight">Pure Masurian Lakeside Sanctuary • Dąbrówno</span>
+        </div>
+
+        <!-- Main Title -->
+        <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-bold leading-tight tracking-tight mb-6">
+          We have prepared the place.<br>
+          <span class="gold-gradient-text italic font-normal">You give yourself time to relax.</span>
+        </h1>
+
+        <!-- Subheading -->
+        <p class="max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-zinc-300 font-light mb-10 leading-relaxed">
+          Surround yourself with crisp lake breezes, sunset pier swims, private bathrooms, and an expansive garden paradise.
+        </p>
+
+        <!-- Hero Actions -->
+        <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mb-16">
+          <a href="#rooms" class="px-8 py-4 rounded-full bg-gradient-to-r from-brand-gold via-brand-goldLight to-amber-400 text-brand-darker font-extrabold text-sm uppercase tracking-wider shadow-xl shadow-brand-gold/25 hover:shadow-brand-gold/50 hover:-translate-y-1 transition-all">
+            Reserve Your Room
+          </a>
+          <a href="#calculator" class="px-8 py-4 rounded-full glass-card hover:bg-brand-emerald/70 text-white font-semibold text-sm uppercase tracking-wider border border-brand-border transition-all hover:-translate-y-1 flex items-center gap-2">
+            <span>Calculate Stay</span>
+            <span class="text-brand-gold">→</span>
+          </a>
+        </div>
+
+        <!-- 3D Hero Photo Frame Showcase -->
+        <div class="tilt-card relative max-w-4xl mx-auto rounded-3xl p-3 glass-card border border-brand-border/60 shadow-2xl">
+          <div class="relative w-full h-72 sm:h-96 md:h-[440px] rounded-2xl overflow-hidden group">
+            <img 
+              src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80" 
+              alt="Lakeside Sunset Pier at Dąbrówno" 
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              onerror="this.src='https://placehold.co/1200x600/0d2319/e5b869?text=Lakeside+Pier+View';"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-darker via-transparent to-black/20"></div>
+            
+            <div class="tilt-deep absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 text-left">
+              <div>
+                <span class="text-xs uppercase tracking-widest text-brand-gold font-bold">Lakeside Sanctuary</span>
+                <h2 class="text-xl sm:text-2xl font-serif font-bold text-white">Pier Sunsets & Water Equipment Available</h2>
+              </div>
+              <div class="px-4 py-2 rounded-xl bg-brand-darker/80 backdrop-blur-md border border-brand-border text-xs text-zinc-300">
+                Starting from <span class="text-brand-gold font-bold text-base" id="heroPriceTag">80 PLN</span> / person / night
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="amenities" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs uppercase tracking-widest text-brand-gold font-bold">Unwind by the Water</span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold mt-2 mb-4">Every Comfort, Natural Splendor</h2>
+        <p class="text-zinc-400 text-sm sm:text-base">
+          From tranquil morning angling to evening barbecue feasts under starlit skies in our peaceful green sanctuary.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Amenity 1 -->
+        <div class="tilt-card glass-card rounded-2xl p-6 relative overflow-hidden group">
+          <div class="w-14 h-14 rounded-2xl bg-brand-emeraldLight/60 border border-brand-border/40 flex items-center justify-center text-3xl mb-5 text-brand-gold group-hover:scale-110 transition-transform">
+            🎣
+          </div>
+          <div class="tilt-content">
+            <h3 class="font-serif text-lg font-bold text-white mb-2">Lake, Pier & Kayaks</h3>
+            <p class="text-zinc-400 text-xs sm:text-sm leading-relaxed mb-4">
+              Direct access to clean water ideal for kayak trips, anglers seeking calm spots, and refreshing sunset swims.
+            </p>
+            <div class="h-28 rounded-xl overflow-hidden relative border border-brand-border/30">
+              <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80" alt="Lake kayaking" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x300/0d2319/e5b869?text=Lake+Kayaking';">
+            </div>
+          </div>
+        </div>
+
+        <!-- Amenity 2 -->
+        <div class="tilt-card glass-card rounded-2xl p-6 relative overflow-hidden group">
+          <div class="w-14 h-14 rounded-2xl bg-brand-emeraldLight/60 border border-brand-border/40 flex items-center justify-center text-3xl mb-5 text-brand-gold group-hover:scale-110 transition-transform">
+            🌿
+          </div>
+          <div class="tilt-content">
+            <h3 class="font-serif text-lg font-bold text-white mb-2">Garden & Barbecue</h3>
+            <p class="text-zinc-400 text-xs sm:text-sm leading-relaxed mb-4">
+              Expansive green garden outfitted with comfy loungers for reading, afternoon naps, and convivial barbecue feasts.
+            </p>
+            <div class="h-28 rounded-xl overflow-hidden relative border border-brand-border/30">
+              <img src="https://images.unsplash.com/photo-1584467735871-8e85353a8413?auto=format&fit=crop&w=600&q=80" alt="Garden and loungers" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x300/0d2319/e5b869?text=Green+Garden';">
+            </div>
+          </div>
+        </div>
+
+        <!-- Amenity 3 -->
+        <div class="tilt-card glass-card rounded-2xl p-6 relative overflow-hidden group">
+          <div class="w-14 h-14 rounded-2xl bg-brand-emeraldLight/60 border border-brand-border/40 flex items-center justify-center text-3xl mb-5 text-brand-gold group-hover:scale-110 transition-transform">
+            🍳
+          </div>
+          <div class="tilt-content">
+            <h3 class="font-serif text-lg font-bold text-white mb-2">Equipped Kitchen</h3>
+            <p class="text-zinc-400 text-xs sm:text-sm leading-relaxed mb-4">
+              Fully stocked guest kitchen with stoves, refrigeration, cookware, and a cozy space to prepare meals and socialize.
+            </p>
+            <div class="h-28 rounded-xl overflow-hidden relative border border-brand-border/30">
+              <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80" alt="Kitchen setup" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x300/0d2319/e5b869?text=Equipped+Kitchen';">
+            </div>
+          </div>
+        </div>
+
+        <!-- Amenity 4 -->
+        <div class="tilt-card glass-card rounded-2xl p-6 relative overflow-hidden group">
+          <div class="w-14 h-14 rounded-2xl bg-brand-emeraldLight/60 border border-brand-border/40 flex items-center justify-center text-3xl mb-5 text-brand-gold group-hover:scale-110 transition-transform">
+            🛡️
+          </div>
+          <div class="tilt-content">
+            <h3 class="font-serif text-lg font-bold text-white mb-2">On-Site Parking</h3>
+            <p class="text-zinc-400 text-xs sm:text-sm leading-relaxed mb-4">
+              Private, secure gated parking on the retreat property. Travel with peace of mind and direct vehicle access.
+            </p>
+            <div class="h-28 rounded-xl overflow-hidden relative border border-brand-border/30">
+              <img src="https://images.unsplash.com/photo-1590674899484-d5640e854abe?auto=format&fit=crop&w=600&q=80" alt="Private grounds" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x300/0d2319/e5b869?text=Private+Parking';">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="rooms" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div>
+          <span class="text-xs uppercase tracking-widest text-brand-gold font-bold">Homely Warmth & Elegance</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold mt-2">Well-Appointed Rooms</h2>
+        </div>
+        <p class="text-zinc-400 text-sm max-w-md">
+          Every room is equipped with a private bathroom with walk-in shower, high-definition LED TV, and premium mattress comfort.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <!-- Room 1 -->
+        <div class="tilt-card glass-card rounded-3xl overflow-hidden flex flex-col group border border-brand-border/50">
+          <div class="relative h-56 overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=80" 
+              alt="Room No. 1" 
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              onerror="this.src='https://placehold.co/600x400/0d2319/e5b869?text=Room+No.+1';"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent"></div>
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-brand-emeraldLight/80 backdrop-blur-md text-brand-goldLight border border-brand-border">
+              Triple Room
+            </span>
+            <button onclick="openImageModal('https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=1200&q=80', 'Room No. 1 - Three Single Beds')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center text-xs text-white hover:bg-brand-gold hover:text-brand-dark transition-colors">
+              🔍
+            </button>
+          </div>
+
+          <div class="p-6 flex-1 flex flex-col justify-between tilt-content">
+            <div>
+              <h3 class="font-serif text-xl font-bold text-white mb-1">Room No. 1</h3>
+              <p class="text-xs text-brand-gold font-medium mb-4">Capacity: 3 Persons</p>
+              
+              <ul class="space-y-2.5 text-xs text-zinc-300 mb-6">
+                <li class="flex items-center gap-2">
+                  <span class="text-brand-gold">✓</span> 3 Comfortable Single Beds
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-brand-gold">✓</span> Private Bathroom with Shower
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-brand-gold">✓</span> LED Flat Screen TV
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-brand-gold">✓</span> Free High-Speed Wi-Fi
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <div class="flex items-baseline justify-between mb-4 border-t border-brand-border/40 pt-4">
+                <span class="text-xs text-zinc-400">Rate per guest</span>
+                <span class="font-serif text-xl font-bold text-white room-card-price" data-base="80">80 PLN <span class="text-xs font-sans text-zinc-400 font-normal">/ day</span></span>
+              </div>
+              <button onclick="selectRoomForCalculation('Room No. 1 (Triple - 3 Single Beds)', 3)" class="w-full py-2.5 rounded-xl bg-brand-emerald hover:bg-brand-emeraldLight text-brand-gold font-semibold text-xs tracking-wider uppercase border border-brand-border hover:border-brand-gold transition-all">
+                Select & Calculate
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Room 2 -->
+        <div class="tilt-card glass-card rounded-3xl overflow-hidden flex flex-col group border border-brand-border/50">
+          <div class="relative h-56 overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80" 
+              alt="Room No. 2" 
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              onerror="this.src='https://placehold.co/600x400/0d2319/e5b869?text=Room+No.+2';"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent"></div>
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-brand-emeraldLight/80 backdrop-blur-md text-brand-goldLight border border-brand-border">
+              Double Room
+            </span>
+            <button onclick="openImageModal('https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=80', 'Room No. 2 - Two Single Beds')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center text-xs text-white hover:bg-brand-gold hover:text-brand-dark transition-colors">
+              🔍
+            </button>
+          </div>
+
+          <div class="p-6 flex-1 flex flex-col justify-between tilt-content">
+            <div>
+              <h3 class="font-serif text-xl font-bold text-white mb-1">Room No. 2</h3>
+              <p class="text-xs text-brand-gold font-medium mb-4">Capacity: 2 Persons</p>
+              
+              <ul class="space-y-2.5 text-xs text-zinc-300 mb-6">
+                <li class="flex items-center gap-2">
+                  <span class="text-brand-gold">✓</span> 2 Twin Single Beds
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-brand-gold">✓</span> Private Bathroom with Shower
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-brand-gold">✓</span> LED Flat Screen TV
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-brand-gold">✓</span> Garden & Courtyard View
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <div class="flex items-baseline justify-between mb-4 border-t border-brand-border/40 pt-4">
+                <span class="text-xs text-zinc-400">Rate per guest</span>
+                <span class="font-serif text-xl font-bold text-white room-card-price" data-base="80">80 PLN <span class="text-xs font-sans text-zinc-400 font-normal">/ day</span></span>
+              </div>
+              <button onclick="selectRoomForCalculation('Room No. 2 (Double - 2 Single Beds)', 2)" class="w-full py-2.5 rounded-xl bg-brand-emerald hover:bg-brand-emeraldLight text-brand-gold font-semibold text-xs tracking-wider uppercase border border-brand-border hover:border-brand-gold transition-all">
+                Select & Calculate
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Room 3 -->
+        <div class="tilt-card glass-card rounded-3xl overflow-hidden flex flex-col group border border-brand-border/50">
+          <div class="relative h-56 overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80" 
+              alt="Room No. 3" 
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              onerror="this.src='https://placehold.co/600x400/0d2319/e5b869?text=Room+No.+3';"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent"></div>
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-brand-emeraldLight/80 backdrop-blur-md text-brand-goldLight border border-brand-border">
+              Double Room
+            </span>
+            <button onclick="openImageModal('https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1200&q=80', 'Room No. 3 - King Double Bed')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center text-xs text-white hover:bg-brand-gold hover:text-brand-dark transition-colors">
+              🔍
+            </button>
+          </div>
+
+          <div class="p-6 flex-1 flex flex-col justify-between tilt-content">
+            <div>
+              <h3 class="font-serif text-xl font-bold text-white mb-1">Room No. 3</h3>
+              <p class="text-xs text-brand-gold font-medium mb-4">Capacity: 2 Persons</p>
+              
+              <ul class="space-y-2.5 text-xs text-zinc-300 mb-6">
+                <li class="flex items-center gap-2">
+                  <span class="text-brand-gold">✓</span> 1 Romantic Double Bed
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-brand-gold">✓</span> Private Bathroom with Shower
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-brand-gold">✓</span> LED Flat Screen TV
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-brand-gold">✓</span> Quiet Lake Breeze Ambiance
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <div class="flex items-baseline justify-between mb-4 border-t border-brand-border/40 pt-4">
+                <span class="text-xs text-zinc-400">Rate per guest</span>
+                <span class="font-serif text-xl font-bold text-white room-card-price" data-base="80">80 PLN <span class="text-xs font-sans text-zinc-400 font-normal">/ day</span></span>
+              </div>
+              <button onclick="selectRoomForCalculation('Room No. 3 (Double Bed)', 2)" class="w-full py-2.5 rounded-xl bg-brand-emerald hover:bg-brand-emeraldLight text-brand-gold font-semibold text-xs tracking-wider uppercase border border-brand-border hover:border-brand-gold transition-all">
+                Select & Calculate
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Room 4 -->
+        <div class="tilt-card glass-card rounded-3xl overflow-hidden flex flex-col group border border-brand-border/50">
+          <div class="relative h-56 overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80" 
+              alt="Room No. 4" 
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              onerror="this.src='https://placehold.co/600x400/0d2319/e5b869?text=Room+No.+4';"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent"></div>
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-brand-emeraldLight/80 backdrop-blur-md text-brand-goldLight border border-brand-border">
+              Family / Flexible
+            </span>
+            <button onclick="openImageModal('https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1200&q=80', 'Room No. 4 - Double + Single Bed + Extra Bed')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center text-xs text-white hover:bg-brand-gold hover:text-brand-dark transition-colors">
+              🔍
+            </button>
+          </div>
+
+          <div class="p-6 flex-1 flex flex-col justify-between tilt-content">
+            <div>
+              <h3 class="font-serif text-xl font-bold text-white mb-1">Room No. 4</h3>
+              <p class="text-xs text-brand-gold font-medium mb-4">Capacity: 3–4 Persons</p>
+              
+              <ul class="space-y-2.5 text-xs text-zinc-300 mb-6">
+                <li class="flex items-center gap-2">
+                  <span class="text-brand-gold">✓</span> 1 Double Bed + 1 Single Bed
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-brand-gold">✓</span> Extra Bed Available on Request
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-brand-gold">✓</span> Private Bathroom with Shower
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-brand-gold">✓</span> LED Flat Screen TV
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <div class="flex items-baseline justify-between mb-4 border-t border-brand-border/40 pt-4">
+                <span class="text-xs text-zinc-400">Rate per guest</span>
+                <span class="font-serif text-xl font-bold text-white room-card-price" data-base="80">80 PLN <span class="text-xs font-sans text-zinc-400 font-normal">/ day</span></span>
+              </div>
+              <button onclick="selectRoomForCalculation('Room No. 4 (Double + Single + Extra Bed)', 3)" class="w-full py-2.5 rounded-xl bg-brand-emerald hover:bg-brand-emeraldLight text-brand-gold font-semibold text-xs tracking-wider uppercase border border-brand-border hover:border-brand-gold transition-all">
+                Select & Calculate
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="surroundings" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        
+        <!-- Left: Destination Information -->
+        <div>
+          <span class="text-xs uppercase tracking-widest text-brand-gold font-bold">Discover the Region</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold mt-2 mb-6">Lakeside Fun & Historic Castles</h2>
+          <p class="text-zinc-300 text-sm sm:text-base leading-relaxed mb-8">
+            AgroArt is positioned in Dąbrówno with lake access steps from your door, while offering effortless drives to Poland’s most iconic medieval history and open-air cultural gems.
+          </p>
+
+          <div class="space-y-4">
+            
+            <div class="tilt-card glass-card p-4 rounded-2xl flex items-center justify-between border-l-4 border-l-brand-gold">
+              <div class="flex items-center gap-3">
+                <span class="text-2xl">🏖️</span>
+                <div>
+                  <h4 class="text-sm font-bold text-white">Beach, Bar & Water Rental</h4>
+                  <p class="text-xs text-zinc-400">Kayaks, swimming docks, and refreshing beverages</p>
+                </div>
+              </div>
+              <span class="text-xs font-bold text-brand-gold uppercase tracking-wider bg-brand-emerald px-2.5 py-1 rounded-full border border-brand-border">Immediate</span>
+            </div>
+
+            <div class="tilt-card glass-card p-4 rounded-2xl flex items-center justify-between border-l-4 border-l-emerald-400">
+              <div class="flex items-center gap-3">
+                <span class="text-2xl">🛒</span>
+                <div>
+                  <h4 class="text-sm font-bold text-white">Nearest Local Shops</h4>
+                  <p class="text-xs text-zinc-400">Fresh local produce, bakeries & groceries</p>
+                </div>
+              </div>
+              <span class="text-xs font-bold text-emerald-300 uppercase tracking-wider bg-brand-emerald px-2.5 py-1 rounded-full border border-brand-border">5 Minutes</span>
+            </div>
+
+            <div class="tilt-card glass-card p-4 rounded-2xl flex items-center justify-between border-l-4 border-l-amber-500">
+              <div class="flex items-center gap-3">
+                <span class="text-2xl">⚔️</span>
+                <div>
+                  <h4 class="text-sm font-bold text-white">Grunwald Battlefield</h4>
+                  <p class="text-xs text-zinc-400">Historic museum & medieval victory monument</p>
+                </div>
+              </div>
+              <span class="text-xs font-bold text-amber-300 uppercase tracking-wider bg-brand-emerald px-2.5 py-1 rounded-full border border-brand-border">10 Minutes</span>
+            </div>
+
+            <div class="tilt-card glass-card p-4 rounded-2xl flex items-center justify-between border-l-4 border-l-indigo-400">
+              <div class="flex items-center gap-3">
+                <span class="text-2xl">🏰</span>
+                <div>
+                  <h4 class="text-sm font-bold text-white">Nidzica Castle</h4>
+                  <p class="text-xs text-zinc-400">14th-century Gothic stronghold and museum exhibitions</p>
+                </div>
+              </div>
+              <span class="text-xs font-bold text-indigo-300 uppercase tracking-wider bg-brand-emerald px-2.5 py-1 rounded-full border border-brand-border">30 Minutes</span>
+            </div>
+
+            <div class="tilt-card glass-card p-4 rounded-2xl flex items-center justify-between border-l-4 border-l-teal-400">
+              <div class="flex items-center gap-3">
+                <span class="text-2xl">🌾</span>
+                <div>
+                  <h4 class="text-sm font-bold text-white">Open-Air Museum in Olsztynek</h4>
+                  <p class="text-xs text-zinc-400">Historic folk architecture, windmills & heritage workshops</p>
+                </div>
+              </div>
+              <span class="text-xs font-bold text-teal-300 uppercase tracking-wider bg-brand-emerald px-2.5 py-1 rounded-full border border-brand-border">30 Minutes</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right: Check-In & Location Card -->
+        <div class="tilt-card glass-card rounded-3xl p-8 border border-brand-border relative overflow-hidden">
+          <div class="absolute -top-12 -right-12 w-48 h-48 bg-brand-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <span class="text-xs uppercase tracking-widest text-brand-gold font-bold">Plan Your Arrival</span>
+          <h3 class="font-serif text-2xl font-bold text-white mt-1 mb-6">Check-in & Guest Hours</h3>
+
+          <div class="grid grid-cols-2 gap-4 mb-8">
+            <div class="p-4 rounded-2xl bg-brand-darker/60 border border-brand-border text-center">
+              <span class="text-zinc-400 text-xs uppercase tracking-wider">Check-In From</span>
+              <p class="font-serif text-2xl font-bold text-brand-gold mt-1">2:00 PM</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-brand-darker/60 border border-brand-border text-center">
+              <span class="text-zinc-400 text-xs uppercase tracking-wider">Check-Out Until</span>
+              <p class="font-serif text-2xl font-bold text-brand-gold mt-1">11:00 AM</p>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-brand-emerald/40 border border-brand-border/60 text-xs text-zinc-300 mb-8 leading-relaxed">
+            💬 <strong>Flexible Schedule:</strong> If our booking calendar permits, check-in and check-out times can be arranged individually with host Anna Iwaniak.
+          </div>
+
+          <!-- Location Information Box -->
+          <div class="border-t border-brand-border/40 pt-6">
+            <h4 class="font-serif text-lg font-bold text-white mb-2">Our Retreat Address</h4>
+            <p class="text-sm text-zinc-300 mb-4">
+              <strong>AgroArt</strong> • Anna Iwaniak<br>
+              Ul. Lidzbarska 1, 14-120 Dąbrówno, Poland
+            </p>
+            
+            <a href="https://maps.google.com/?q=Ul.+Lidzbarska+1,+14-120+Dąbrówno" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand-emeraldLight hover:bg-emerald-700 text-white text-xs font-semibold uppercase tracking-wider border border-brand-border transition-all">
+              <span>📍 View on Google Maps</span>
+              <span class="text-brand-gold">↗</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="calculator" class="py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+      <div class="tilt-card glass-card rounded-3xl p-6 sm:p-10 border border-brand-border/80 shadow-2xl relative">
+        
+        <div class="text-center max-w-xl mx-auto mb-10">
+          <span class="text-xs uppercase tracking-widest text-brand-gold font-bold">Transparent Rates</span>
+          <h2 class="font-serif text-3xl font-bold text-white mt-1">Interactive Price Estimator</h2>
+          <p class="text-zinc-400 text-xs sm:text-sm mt-2">
+            Calculate your total stay based on the 80 PLN (≈ €18.50) rate and instantly transmit your reservation request directly to Anna via WhatsApp or phone.
+          </p>
+        </div>
+
+        <form id="calculatorForm" class="space-y-6" onsubmit="event.preventDefault();">
+          
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            
+            <!-- Room Selection -->
+            <div>
+              <label class="block text-xs uppercase tracking-wider text-brand-gold font-semibold mb-2">
+                Preferred Room
+              </label>
+              <select id="calcRoom" class="w-full bg-brand-darker/90 border border-brand-border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-colors" onchange="recalculatePrice()">
+                <option value="Room No. 1 (Triple - 3 Single Beds)">Room No. 1 (Triple)</option>
+                <option value="Room No. 2 (Double - 2 Single Beds)">Room No. 2 (Double)</option>
+                <option value="Room No. 3 (Double Bed)">Room No. 3 (Double)</option>
+                <option value="Room No. 4 (Triple / Quad + Extra Bed)">Room No. 4 (Family)</option>
+              </select>
+            </div>
+
+            <!-- Number of Guests -->
+            <div>
+              <label class="block text-xs uppercase tracking-wider text-brand-gold font-semibold mb-2">
+                Number of Guests
+              </label>
+              <input type="number" id="calcGuests" min="1" max="15" value="2" class="w-full bg-brand-darker/90 border border-brand-border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-colors" oninput="recalculatePrice()" />
+            </div>
+
+            <!-- Number of Nights -->
+            <div>
+              <label class="block text-xs uppercase tracking-wider text-brand-gold font-semibold mb-2">
+                Duration (Nights)
+              </label>
+              <input type="number" id="calcNights" min="1" max="60" value="3" class="w-full bg-brand-darker/90 border border-brand-border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-colors" oninput="recalculatePrice()" />
+            </div>
+
+          </div>
+
+          <!-- Total Calculation Display -->
+          <div class="tilt-deep p-6 rounded-2xl bg-brand-darker/80 border border-brand-border flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div>
+              <span class="text-xs uppercase tracking-wider text-zinc-400">Estimated Total Cost</span>
+              <div class="flex items-baseline gap-2 justify-center sm:justify-start">
+                <span id="displayTotal" class="font-serif text-3xl sm:text-4xl font-black text-brand-gold">480 PLN</span>
+                <span id="displayConverted" class="text-xs text-zinc-400">(≈ €111.00)</span>
+              </div>
+            </div>
+            <div class="text-xs text-zinc-400 text-center sm:text-right">
+              Rate: <span class="text-white font-semibold" id="displayUnitRate">80 PLN</span> / person / night<br>
+              <span class="text-emerald-400">✓ No hidden cleaning or booking fees</span>
+            </div>
+          </div>
+
+          <!-- Instant Action Buttons -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <button type="button" onclick="sendWhatsAppReservation()" class="w-full py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm tracking-wider uppercase shadow-lg shadow-emerald-700/30 flex items-center justify-center gap-2 hover:-translate-y-0.5 transition-all">
+              <span>💬</span>
+              <span>Reserve via WhatsApp</span>
+            </button>
+
+            <a href="tel:+48572994705" class="w-full py-4 rounded-2xl bg-gradient-to-r from-brand-gold to-brand-goldLight text-brand-darker font-bold text-sm tracking-wider uppercase shadow-lg shadow-brand-gold/20 flex items-center justify-center gap-2 hover:-translate-y-0.5 transition-all">
+              <span>📞</span>
+              <span>Call Host Directly</span>
+            </a>
+          </div>
+
+        </form>
+
+      </div>
+    </section>
+
+    <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div class="relative rounded-3xl p-8 sm:p-14 glass-card border border-brand-border overflow-hidden text-center">
+        <div class="absolute inset-0 bg-gradient-to-r from-emerald-950/60 via-brand-emerald/40 to-emerald-950/60 pointer-events-none"></div>
+        
+        <div class="relative z-10 max-w-2xl mx-auto">
+          <span class="text-xs font-bold tracking-widest text-brand-gold uppercase">Direct Host Contact</span>
+          <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white mt-2 mb-4">WELCOME TO AGROART</h2>
+          <p class="text-zinc-300 text-sm sm:text-base mb-8">
+            Anna Iwaniak warmly welcomes you to our serene lakeside grounds in Dąbrówno. Reach out directly for dates, inquiries, or customized arrival arrangements.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm font-semibold">
+            <div class="px-6 py-3 rounded-full bg-brand-darker/80 border border-brand-border text-zinc-300">
+              📍 Ul. Lidzbarska 1, 14-120 Dąbrówno
+            </div>
+            <a href="tel:+48572994705" class="px-6 py-3 rounded-full bg-brand-gold text-brand-darker hover:bg-brand-goldLight transition-colors">
+              📞 +48 572 994 705
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="border-t border-brand-border/40 py-10 px-4 text-center text-xs text-zinc-500">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div>
+          &copy; <span id="currentYear">2026</span> AgroArt • Anna Iwaniak. Ul. Lidzbarska 1, 14-120 Dąbrówno.
+        </div>
+        <div class="flex items-center gap-6">
+          <a href="#about" class="hover:text-brand-gold transition-colors">Top</a>
+          <a href="#rooms" class="hover:text-brand-gold transition-colors">Rooms</a>
+          <a href="#calculator" class="hover:text-brand-gold transition-colors">Calculator</a>
+          <a href="tel:+48572994705" class="text-brand-gold hover:underline">Book: +48 572 994 705</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <div id="imageModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl hidden flex items-center justify-center p-4">
+    <div class="relative max-w-4xl w-full glass-card rounded-3xl overflow-hidden p-2 border border-brand-gold/50">
+      <button onclick="closeImageModal()" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/70 text-white font-bold text-lg hover:bg-brand-gold hover:text-brand-dark transition-all flex items-center justify-center">
+        ✕
+      </button>
+      <img id="modalImg" src="" alt="Room detail" class="w-full max-h-[75vh] object-cover rounded-2xl mb-3">
+      <div class="p-3 text-center">
+        <h4 id="modalCaption" class="font-serif text-lg font-bold text-brand-gold"></h4>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Set Year
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // ----------------------------------------------------
+    // 1. Interactive 3D Spider-Web / Particle Constellation
+    // ----------------------------------------------------
+    const canvas = document.getElementById('spiderCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      initSpiderNodes();
+    });
+
+    const mouse = {
+      x: width / 2,
+      y: height / 2,
+      radius: 170,
+      active: false
+    };
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      mouse.active = true;
+    });
+
+    window.addEventListener('mouseleave', () => {
+      mouse.active = false;
+    });
+
+    class SpiderNode {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.7;
+        this.vy = (Math.random() - 0.5) * 0.7;
+        this.radius = Math.random() * 2 + 1;
+        this.baseColor = Math.random() > 0.4 ? 'rgba(229, 184, 105,' : 'rgba(52, 211, 153,';
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Bounce walls
+        if (this.x < 0 || this.x > width) this.vx *= -1;
+        if (this.y < 0 || this.y > height) this.vy *= -1;
+
+        // Mouse web pull effect
+        if (mouse.active) {
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < mouse.radius) {
+            const force = (mouse.radius - dist) / mouse.radius;
+            this.x -= (dx / dist) * force * 3;
+            this.y -= (dy / dist) * force * 3;
+          }
+        }
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.baseColor + '0.7)';
+        ctx.fill();
+      }
+    }
+
+    let nodes = [];
+    function initSpiderNodes() {
+      nodes = [];
+      const nodeCount = Math.floor((width * height) / 12000);
+      for (let i = 0; i < Math.min(nodeCount, 90); i++) {
+        nodes.push(new SpiderNode());
+      }
+    }
+    initSpiderNodes();
+
+    function renderSpiderWeb() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Connect nodes with spider-web filament lines
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 130) {
+            const alpha = (1 - dist / 130) * 0.28;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.strokeStyle = `rgba(229, 184, 105, ${alpha})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+
+        // Connect to mouse pointer like an interactive web center
+        if (mouse.active) {
+          const mdx = mouse.x - nodes[i].x;
+          const mdy = mouse.y - nodes[i].y;
+          const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+          if (mdist < mouse.radius) {
+            const mAlpha = (1 - mdist / mouse.radius) * 0.45;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.strokeStyle = `rgba(52, 211, 153, ${mAlpha})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+
+        nodes[i].update();
+        nodes[i].draw();
+      }
+
+      requestAnimationFrame(renderSpiderWeb);
+    }
+    renderSpiderWeb();
+
+    // ----------------------------------------------------
+    // 2. 3D Card Hover Tilt with Dynamic Perspective
+    // ----------------------------------------------------
+    const tiltElements = document.querySelectorAll('.tilt-card');
+    tiltElements.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -10;
+        const rotateY = ((x - centerX) / centerX) * 10;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      });
+    });
+
+    // ----------------------------------------------------
+    // 3. Currency & Rate Calculator
+    // ----------------------------------------------------
+    let currentCurrency = 'PLN';
+    const BASE_RATE_PLN = 80;
+    const EUR_EXCHANGE = 0.23; // 80 PLN ≈ 18.5 EUR
+
+    function setCurrency(cur) {
+      currentCurrency = cur;
+      const btnPln = document.getElementById('btnPln');
+      const btnEur = document.getElementById('btnEur');
+
+      if (cur === 'PLN') {
+        btnPln.className = 'px-2.5 py-1 rounded-full bg-brand-gold text-brand-dark font-bold transition-all';
+        btnEur.className = 'px-2.5 py-1 rounded-full text-zinc-300 hover:text-white transition-all';
+      } else {
+        btnEur.className = 'px-2.5 py-1 rounded-full bg-brand-gold text-brand-dark font-bold transition-all';
+        btnPln.className = 'px-2.5 py-1 rounded-full text-zinc-300 hover:text-white transition-all';
+      }
+
+      updatePricingDisplays();
+      recalculatePrice();
+    }
+
+    function updatePricingDisplays() {
+      const heroTag = document.getElementById('heroPriceTag');
+      const unitRate = document.getElementById('displayUnitRate');
+      const cardPrices = document.querySelectorAll('.room-card-price');
+
+      if (currentCurrency === 'PLN') {
+        heroTag.textContent = `${BASE_RATE_PLN} PLN`;
+        unitRate.textContent = `${BASE_RATE_PLN} PLN`;
+        cardPrices.forEach(el => {
+          el.innerHTML = `${BASE_RATE_PLN} PLN <span class="text-xs font-sans text-zinc-400 font-normal">/ day</span>`;
+        });
+      } else {
+        const eurVal = (BASE_RATE_PLN * EUR_EXCHANGE).toFixed(1);
+        heroTag.textContent = `€${eurVal}`;
+        unitRate.textContent = `€${eurVal}`;
+        cardPrices.forEach(el => {
+          el.innerHTML = `€${eurVal} <span class="text-xs font-sans text-zinc-400 font-normal">/ day</span>`;
+        });
+      }
+    }
+
+    function recalculatePrice() {
+      const guests = Math.max(1, parseInt(document.getElementById('calcGuests').value) || 1);
+      const nights = Math.max(1, parseInt(document.getElementById('calcNights').value) || 1);
+      const totalPln = guests * nights * BASE_RATE_PLN;
+      const totalEur = (totalPln * EUR_EXCHANGE).toFixed(1);
+
+      const totalDisplay = document.getElementById('displayTotal');
+      const convertedDisplay = document.getElementById('displayConverted');
+
+      if (currentCurrency === 'PLN') {
+        totalDisplay.textContent = `${totalPln} PLN`;
+        convertedDisplay.textContent = `(≈ €${totalEur})`;
+      } else {
+        totalDisplay.textContent = `€${totalEur}`;
+        convertedDisplay.textContent = `(≈ ${totalPln} PLN)`;
+      }
+    }
+
+    function selectRoomForCalculation(roomName, defaultGuests) {
+      const select = document.getElementById('calcRoom');
+      for (let i = 0; i < select.options.length; i++) {
+        if (select.options[i].value.includes(roomName.split('(')[0].trim())) {
+          select.selectedIndex = i;
+          break;
+        }
+      }
+      document.getElementById('calcGuests').value = defaultGuests;
+      recalculatePrice();
+      document.getElementById('calculator').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function sendWhatsAppReservation() {
+      const room = document.getElementById('calcRoom').value;
+      const guests = document.getElementById('calcGuests').value;
+      const nights = document.getElementById('calcNights').value;
+      const total = document.getElementById('displayTotal').textContent;
+
+      const messageText = `Hello Anna,%0A%0AI would like to make an inquiry for AgroArt in Dąbrówno:%0A• Selected Room: ${encodeURIComponent(room)}%0A• Number of Guests: ${guests}%0A• Length of Stay: ${nights} nights%0A• Total Estimate: ${total}%0A%0ACould you please check availability for these dates? Thank you!`;
+
+      window.open(`https://wa.me/48572994705?text=${messageText}`, '_blank');
+    }
+
+    // ----------------------------------------------------
+    // 4. Modal Photo Lightbox
+    // ----------------------------------------------------
+    function openImageModal(imgSrc, caption) {
+      const modal = document.getElementById('imageModal');
+      const img = document.getElementById('modalImg');
+      const cap = document.getElementById('modalCaption');
+      img.src = imgSrc;
+      cap.textContent = caption;
+      modal.classList.remove('hidden');
+    }
+
+    function closeImageModal() {
+      document.getElementById('imageModal').classList.add('hidden');
+    }
+
+    document.getElementById('imageModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imageModal') closeImageModal();
+    });
+
+    // ----------------------------------------------------
+    // 5. Lake Nature Ambient Synthesizer (Web Audio API)
+    // ----------------------------------------------------
+    let audioCtx = null;
+    let isPlayingAudio = false;
+    let pinkNoiseNode = null;
+    let waveGain = null;
+
+    function initNatureAudio() {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioContext();
+
+      // Buffer-generated pink noise for soft wind and lake shore water
+      const bufferSize = audioCtx.sampleRate * 2;
+      const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const output = noiseBuffer.getChannelData(0);
+      let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        b0 = 0.99886 * b0 + white * 0.0555179;
+        b1 = 0.99332 * b1 + white * 0.0750759;
+        b2 = 0.96900 * b2 + white * 0.1538520;
+        b3 = 0.86650 * b3 + white * 0.3104856;
+        b4 = 0.55000 * b4 + white * 0.5329522;
+        b5 = -0.7616 * b5 - white * 0.0168980;
+        output[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
+        output[i] *= 0.05;
+        b6 = white * 0.115926;
+      }
+
+      const whiteNoise = audioCtx.createBufferSource();
+      whiteNoise.buffer = noiseBuffer;
+      whiteNoise.loop = true;
+
+      const lowpass = audioCtx.createBiquadFilter();
+      lowpass.type = 'lowpass';
+      lowpass.frequency.setValueAtTime(380, audioCtx.currentTime);
+
+      waveGain = audioCtx.createGain();
+      waveGain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+
+      // Low frequency wave oscillator to simulate water lapping against the pier
+      const lfo = audioCtx.createOscillator();
+      lfo.frequency.setValueAtTime(0.18, audioCtx.currentTime); // 1 lap every 5 seconds
+      const lfoGain = audioCtx.createGain();
+      lfoGain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+      lfo.connect(lfoGain);
+      lfoGain.connect(waveGain.gain);
+      lfo.start();
+
+      whiteNoise.connect(lowpass);
+      lowpass.connect(waveGain);
+      waveGain.connect(audioCtx.destination);
+      whiteNoise.start();
+
+      pinkNoiseNode = whiteNoise;
+    }
+
+    const soundToggle = document.getElementById('soundToggle');
+    const soundIcon = document.getElementById('soundIcon');
+
+    soundToggle.addEventListener('click', () => {
+      if (!audioCtx) {
+        initNatureAudio();
+        isPlayingAudio = true;
+        soundIcon.textContent = '🔊';
+        soundToggle.classList.add('bg-brand-gold', 'text-brand-dark');
+        soundToggle.classList.remove('bg-brand-emerald/40', 'text-brand-gold');
+      } else if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+        isPlayingAudio = true;
+        soundIcon.textContent = '🔊';
+        soundToggle.classList.add('bg-brand-gold', 'text-brand-dark');
+        soundToggle.classList.remove('bg-brand-emerald/40', 'text-brand-gold');
+      } else if (isPlayingAudio) {
+        audioCtx.suspend();
+        isPlayingAudio = false;
+        soundIcon.textContent = '🔇';
+        soundToggle.classList.remove('bg-brand-gold', 'text-brand-dark');
+        soundToggle.classList.add('bg-brand-emerald/40', 'text-brand-gold');
+      }
+    });
+
+    // Run initial price calculation
+    recalculatePrice();
+  </script>
+</body>
+</html>
